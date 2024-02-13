@@ -2,6 +2,7 @@ import { Home } from "../Home/Home";
 import { RecipeIndex } from "../Recipe/RecipeIndex";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { RecipeNew } from "../Recipe/RecipeNew";
 
 export function Content() {
   const [recipes, setRecipes] = useState([]);
@@ -12,12 +13,21 @@ export function Content() {
     });
   };
 
+  const handleCreateRecipe = (params, successCallback) => {
+    console.log("handleCreateRecipe", params);
+    axios.post("http://localhost:3000/recipes.json", params).then((response) => {
+      setRecipes([...recipes, response.data]);
+      successCallback();
+    });
+  };
+
   useEffect(handleIndexRecipes, []);
 
   return (
     <>
       <Home />
       <RecipeIndex recipes={recipes} />
+      <RecipeNew onCreateRecipe={handleCreateRecipe} />
     </>
   );
 }
