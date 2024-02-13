@@ -3,6 +3,9 @@ import { RecipeIndex } from "../Recipe/RecipeIndex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { RecipeNew } from "../Recipe/RecipeNew";
+import { LogoutLink } from "../Authentication/Logout";
+import { SignUp } from "../Authentication/SignUp";
+import { Login } from "../Authentication/Login";
 
 export function Content() {
   const [recipes, setRecipes] = useState([]);
@@ -25,6 +28,9 @@ export function Content() {
 
   return (
     <>
+      <SignUp />
+      <Login />
+      <LogoutLink />
       <Home />
       <RecipeIndex recipes={recipes} />
       <RecipeNew onCreateRecipe={handleCreateRecipe} />
