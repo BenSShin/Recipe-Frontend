@@ -6,9 +6,12 @@ import { RecipeNew } from "../Recipe/RecipeNew";
 import { LogoutLink } from "../Authentication/Logout";
 import { SignUp } from "../Authentication/SignUp";
 import { Login } from "../Authentication/Login";
+import { RecipeShow } from "../Recipe/RecipeShow";
+import { Route, Routes } from "react-router-dom";
 
 export function Content() {
   const [recipes, setRecipes] = useState([]);
+  const [currentRecipe, setCurrentRecipe] = useState({});
 
   const handleIndexRecipes = () => {
     axios.get("http://localhost:3000/recipes.json").then((response) => {
@@ -24,16 +27,23 @@ export function Content() {
     });
   };
 
+  const handleShowRecipe = (recipe) => {
+    setCurrentRecipe(recipe);
+  };
+
   useEffect(handleIndexRecipes, []);
 
   return (
-    <>
+    <main>
       <SignUp />
       <Login />
       <LogoutLink />
       <Home />
-      <RecipeIndex recipes={recipes} />
       <RecipeNew onCreateRecipe={handleCreateRecipe} />
-    </>
+      <RecipeIndex recipes={recipes} onShowRecipe={handleShowRecipe} />
+      <Routes>
+        <Route path="/recipe" element={<RecipeShow recipe={currentRecipe} />} />
+      </Routes>
+    </main>
   );
 }
