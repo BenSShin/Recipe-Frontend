@@ -3,10 +3,10 @@ import { RecipeIndex } from "../Recipe/RecipeIndex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { RecipeNew } from "../Recipe/RecipeNew";
-import { LogoutLink } from "../Authentication/Logout";
 import { SignUp } from "../Authentication/SignUp";
 import { Login } from "../Authentication/Login";
 import { RecipeShow } from "../Recipe/RecipeShow";
+import { Header } from "../Header";
 import { Route, Routes } from "react-router-dom";
 
 export function Content() {
@@ -35,12 +35,25 @@ export function Content() {
 
   return (
     <main>
-      <SignUp />
-      <Login />
-      <LogoutLink />
+      <Header />
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <Home />
-      <RecipeNew onCreateRecipe={handleCreateRecipe} />
-      <RecipeIndex recipes={recipes} onShowRecipe={handleShowRecipe} />
+      <Routes>
+        <Route
+          path="/recipes"
+          element={
+            <>
+              <RecipeNew onCreateRecipe={handleCreateRecipe} />
+              <RecipeIndex recipes={recipes} onShowRecipe={handleShowRecipe} />
+            </>
+          }
+        />
+      </Routes>
       <Routes>
         <Route path="/recipe" element={<RecipeShow recipe={currentRecipe} />} />
       </Routes>
