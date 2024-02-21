@@ -8,6 +8,7 @@ export function RecipeShow(props) {
       <p>Cook Time: {props.recipe.friendly_cook_time}</p>
       <p>Ingredients: {props.recipe.ingredients}</p>
       <p>Directions: {props.recipe.directions}</p>
+      <button onClick={() => props.onShowUpdateRecipe(props.recipe)}>Update</button>
     </div>
   );
 }

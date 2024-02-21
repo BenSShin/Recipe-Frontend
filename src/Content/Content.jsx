@@ -7,10 +7,13 @@ import { SignUp } from "../Authentication/SignUp";
 import { Login } from "../Authentication/Login";
 import { RecipeShow } from "../Recipe/RecipeShow";
 import { Route, Routes } from "react-router-dom";
+import { Modal } from "../Modal/Modal";
+import { RecipeUpdate } from "../Recipe/RecipeUpdate";
 
 export function Content() {
   const [recipes, setRecipes] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
+  const [isRecipeUpdateVisible, setIsRecipeUpdateVisible] = useState(false);
 
   const handleIndexRecipes = () => {
     axios.get("http://localhost:3000/recipes.json").then((response) => {
@@ -30,6 +33,14 @@ export function Content() {
     setCurrentRecipe(recipe);
   };
 
+  const handleShowUpdateRecipe = (recipe) => {
+    setIsRecipeUpdateVisible(true);
+    setCurrentRecipe(recipe);
+  };
+  const handleCloseUpdate = () => {
+    setIsRecipeUpdateVisible(false);
+  };
+
   useEffect(handleIndexRecipes, []);
 
   return (
@@ -46,7 +57,17 @@ export function Content() {
             </>
           }
         />
-        <Route path="/recipe" element={<RecipeShow recipe={currentRecipe} />} />
+        <Route
+          path="/recipe"
+          element={
+            <>
+              <Modal show={isRecipeUpdateVisible} onClose={handleCloseUpdate}>
+                <RecipeUpdate recipe={currentRecipe} />
+              </Modal>
+              <RecipeShow recipe={currentRecipe} onShowUpdateRecipe={handleShowUpdateRecipe} />
+            </>
+          }
+        />
         <Route path="/" element={<Home />} />
       </Routes>
     </main>
