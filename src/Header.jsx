@@ -8,14 +8,17 @@ export function Header() {
         {localStorage.jwt !== undefined ? (
           <>
             <div>
-              <Link to="/">Home</Link>|<Link to="/recipes">Recipes</Link>|
-              <div>
-                <LogoutLink />
-              </div>
+              <Link to="">Home</Link>|<Link to="/recipes">Recipes</Link>|
+              <LogoutLink />
             </div>
           </>
         ) : (
-          <></>
+          <>
+            <div>
+              <Link to="">Home</Link> | <Link to="/recipes">Recipes</Link> | <Link to="/login">Login</Link> |{" "}
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          </>
         )}
       </nav>
     </header>

@@ -6,7 +6,6 @@ import { RecipeNew } from "../Recipe/RecipeNew";
 import { SignUp } from "../Authentication/SignUp";
 import { Login } from "../Authentication/Login";
 import { RecipeShow } from "../Recipe/RecipeShow";
-import { Header } from "../Header";
 import { Route, Routes } from "react-router-dom";
 
 export function Content() {
@@ -35,15 +34,9 @@ export function Content() {
 
   return (
     <main>
-      <Header />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
-      </Routes>
-      <Routes>
         <Route path="/login" element={<Login />} />
-      </Routes>
-      <Home />
-      <Routes>
         <Route
           path="/recipes"
           element={
@@ -53,9 +46,8 @@ export function Content() {
             </>
           }
         />
-      </Routes>
-      <Routes>
         <Route path="/recipe" element={<RecipeShow recipe={currentRecipe} />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </main>
   );
