@@ -1,6 +1,7 @@
 import { Home } from "../Home/Home";
 import { RecipeIndex } from "../Recipe/RecipeIndex";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RecipeNew } from "../Recipe/RecipeNew";
 import { SignUp } from "../Authentication/SignUp";
@@ -14,6 +15,7 @@ export function Content() {
   const [recipes, setRecipes] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [isRecipeUpdateVisible, setIsRecipeUpdateVisible] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false);
 
   const handleIndexRecipes = () => {
     axios.get("http://localhost:3000/recipes.json").then((response) => {
@@ -37,6 +39,7 @@ export function Content() {
     setIsRecipeUpdateVisible(true);
     setCurrentRecipe(recipe);
   };
+
   const handleCloseUpdate = () => {
     setIsRecipeUpdateVisible(false);
   };
@@ -56,6 +59,29 @@ export function Content() {
       successCallback();
       handleCloseUpdate();
     });
+  };
+
+  const handleDestroyRecipe = (recipe) => {
+    axios.delete(`http://localhost:3000/recipes/${recipe.id}.json`).then((response) => {
+      setRecipes(recipes.filter((r) => r.id !== recipe.id));
+      handleCloseUpdate();
+    });
+  };
+
+  const handleShowDelete = () => {
+    console.log("handleShowDelete");
+    setDeleteShow(true);
+  };
+
+  const handleCloseDelete = () => {
+    setDeleteShow(false);
+  };
+
+  let navigate = useNavigate();
+  const handleClick = () => {
+    handleDestroyRecipe(currentRecipe);
+    let path = "/recipes";
+    navigate(path);
   };
 
   useEffect(handleIndexRecipes, []);
@@ -81,7 +107,16 @@ export function Content() {
               <Modal show={isRecipeUpdateVisible} onClose={handleCloseUpdate}>
                 <RecipeUpdate recipe={currentRecipe} onUpdateRecipe={hanldeUpdateRecipe} />
               </Modal>
-              <RecipeShow recipe={currentRecipe} onShowUpdateRecipe={handleShowUpdateRecipe} />
+              <RecipeShow
+                recipe={currentRecipe}
+                onShowUpdateRecipe={handleShowUpdateRecipe}
+                onShowDeleteRecipe={handleShowDelete}
+              />
+              <Modal show={deleteShow} onClose={handleCloseDelete}>
+                <p>Are you sure you want to delete this recipe?</p>
+                <button onClick={() => handleClick()}>Yes</button>
+                <button onClick={() => handleCloseDelete()}>No</button>
+              </Modal>
             </>
           }
         />
