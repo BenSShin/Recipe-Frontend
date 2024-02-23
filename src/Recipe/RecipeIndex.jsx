@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function RecipeIndex(props) {
   return (
-    <div>
+    <div className="bg-[#FF6969] ">
       <h1>All Recipes</h1>
       <div>
         {props.recipes.map((recipe) => (

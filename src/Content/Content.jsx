@@ -41,6 +41,23 @@ export function Content() {
     setIsRecipeUpdateVisible(false);
   };
 
+  const hanldeUpdateRecipe = (id, params, successCallback) => {
+    axios.patch(`http://localhost:3000/recipes/${id}.json`, params).then((response) => {
+      setRecipes(
+        recipes.map((recipe) => {
+          if (recipe.id === response.data.id) {
+            return response.data;
+          } else {
+            return recipe;
+          }
+        })
+      );
+      setCurrentRecipe(response.data);
+      successCallback();
+      handleCloseUpdate();
+    });
+  };
+
   useEffect(handleIndexRecipes, []);
 
   return (
@@ -62,7 +79,7 @@ export function Content() {
           element={
             <>
               <Modal show={isRecipeUpdateVisible} onClose={handleCloseUpdate}>
-                <RecipeUpdate recipe={currentRecipe} />
+                <RecipeUpdate recipe={currentRecipe} onUpdateRecipe={hanldeUpdateRecipe} />
               </Modal>
               <RecipeShow recipe={currentRecipe} onShowUpdateRecipe={handleShowUpdateRecipe} />
             </>
