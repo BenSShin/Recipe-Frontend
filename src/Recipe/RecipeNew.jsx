@@ -31,6 +31,27 @@ export function RecipeNew(props) {
           <button type="submit">Create Recipe</button>
         </div>
       </form>
+      <form>
+        <section>
+          <p>Category:</p>
+          <label htmlFor="Dessert">Dessert</label>
+          <input type="checkbox" name="Dessert" />
+          <label htmlFor="Drink">Drink</label>
+          <input type="checkbox" name="Drink" />
+          <label htmlFor="Gluten Free">Gluten Free</label>
+          <input type="checkbox" name="Gluten Free" />
+          <label htmlFor="Keto">Keto</label>
+          <input type="checkbox" name="Keto" />
+          <label htmlFor="Salad">Salad</label>
+          <input type="checkbox" name="Salad" />
+          <label htmlFor="Side">Side</label>
+          <input type="checkbox" name="Side" />
+          <label htmlFor="Vegetarian">Vegetarian</label>
+          <input type="checkbox" name="Vegetarian" />
+          <label htmlFor="Vegan">Vegan</label>
+          <input type="checkbox" name="Vegan" />
+        </section>
+      </form>
     </div>
   );
 }

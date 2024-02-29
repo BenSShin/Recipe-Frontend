@@ -31,6 +31,13 @@ export function Content() {
     });
   };
 
+  const handleAddCategory = (recipe_id, params, successCallback) => {
+    axios.post("http://localhost:3000/recipe_categories.json", params).then((response) => {
+      console.log(response);
+      successCallback();
+    });
+  };
+
   const handleShowRecipe = (recipe) => {
     setCurrentRecipe(recipe);
   };
@@ -63,6 +70,7 @@ export function Content() {
 
   const handleDestroyRecipe = (recipe) => {
     axios.delete(`http://localhost:3000/recipes/${recipe.id}.json`).then((response) => {
+      console.log(response);
       setRecipes(recipes.filter((r) => r.id !== recipe.id));
       handleCloseUpdate();
     });
@@ -95,7 +103,7 @@ export function Content() {
           path="/recipes"
           element={
             <>
-              <RecipeNew onCreateRecipe={handleCreateRecipe} />
+              <RecipeNew onCreateRecipe={handleCreateRecipe} onAddCategory={handleAddCategory} />
               <RecipeIndex recipes={recipes} onShowRecipe={handleShowRecipe} />
             </>
           }
