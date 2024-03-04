@@ -31,7 +31,7 @@ export function Content() {
     });
   };
 
-  const handleAddCategory = (recipe_id, params, successCallback) => {
+  const handleAddCategory = (params, successCallback) => {
     axios.post("http://localhost:3000/recipe_categories.json", params).then((response) => {
       console.log(response);
       successCallback();
@@ -103,7 +103,7 @@ export function Content() {
           path="/recipes"
           element={
             <>
-              <RecipeNew onCreateRecipe={handleCreateRecipe} onAddCategory={handleAddCategory} />
+              <RecipeNew onCreateRecipe={handleCreateRecipe} />
               <RecipeIndex recipes={recipes} onShowRecipe={handleShowRecipe} />
             </>
           }
@@ -113,7 +113,11 @@ export function Content() {
           element={
             <>
               <Modal show={isRecipeUpdateVisible} onClose={handleCloseUpdate}>
-                <RecipeUpdate recipe={currentRecipe} onUpdateRecipe={hanldeUpdateRecipe} />
+                <RecipeUpdate
+                  recipe={currentRecipe}
+                  onUpdateRecipe={hanldeUpdateRecipe}
+                  onAddCategory={handleAddCategory}
+                />
               </Modal>
               <RecipeShow
                 recipe={currentRecipe}

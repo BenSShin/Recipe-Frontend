@@ -6,6 +6,12 @@ export function RecipeUpdate(props) {
     props.onUpdateRecipe(props.recipe.id, params, () => event.target.reset());
   };
 
+  const handleAdd = (event) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    props.onAddCategory(params, () => event.target.reset());
+  };
+
   return (
     <>
       <div>
@@ -22,6 +28,25 @@ export function RecipeUpdate(props) {
           <label htmlFor="directions">Directions: </label>
           <input type="text" name="directions" defaultValue={props.recipe.directions} />
           <button type="submit">Update</button>
+        </form>
+        <form onSubmit={handleAdd}>
+          <section>
+            <h3>Category:</h3>
+            <p>Add the recipe to a category.</p>
+            <input type="hidden" name="recipe_id" value={props.recipe.id} />
+            <label htmlFor="categories">Add a Category</label>
+            <select name="categories">
+              <option value="Dessert">Dessert</option>
+              <option value="Drink">Drink</option>
+              <option value="Gluten Free">Gluten Free</option>
+              <option value="Keto">Keto</option>
+              <option value="Salad">Salad</option>
+              <option value="Side">Side</option>
+              <option value="Vegetarian">Vegetarian</option>
+              <option value="Vegan">Vegan</option>
+            </select>
+            <button type="submit">Add Categories</button>
+          </section>
         </form>
       </div>
     </>
