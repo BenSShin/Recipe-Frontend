@@ -33,7 +33,7 @@ export function Content() {
 
   const handleAddCategory = (params, successCallback) => {
     axios.post("http://localhost:3000/recipe_categories.json", params).then((response) => {
-      console.log(response);
+      console.log(response.data);
       successCallback();
     });
   };
@@ -84,6 +84,8 @@ export function Content() {
   const handleCloseDelete = () => {
     setDeleteShow(false);
   };
+
+  // need to add handle delete category
 
   let navigate = useNavigate();
   const handleClick = () => {

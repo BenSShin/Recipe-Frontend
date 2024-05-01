@@ -34,16 +34,16 @@ export function RecipeUpdate(props) {
             <h3>Category:</h3>
             <p>Add the recipe to a category.</p>
             <input type="hidden" name="recipe_id" value={props.recipe.id} />
-            <label htmlFor="categories">Add a Category</label>
-            <select name="categories">
-              <option value="Dessert">Dessert</option>
-              <option value="Drink">Drink</option>
-              <option value="Gluten Free">Gluten Free</option>
-              <option value="Keto">Keto</option>
-              <option value="Salad">Salad</option>
-              <option value="Side">Side</option>
-              <option value="Vegetarian">Vegetarian</option>
-              <option value="Vegan">Vegan</option>
+            <label htmlFor="category_id">Add a Category</label>
+            <select name="category_id">
+              <option value="1">Dessert</option>
+              <option value="2">Drink</option>
+              <option value="3">Gluten Free</option>
+              <option value="4">Keto</option>
+              <option value="5">Salad</option>
+              <option value="6">Side</option>
+              <option value="7">Vegetarian</option>
+              <option value="8">Vegan</option>
             </select>
             <button type="submit">Add Categories</button>
           </section>
